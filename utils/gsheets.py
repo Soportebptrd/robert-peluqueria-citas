@@ -16,23 +16,19 @@ class GoogleSheetsManager:
     def _initialize_client(self):
         """Inicializa el cliente de Google Sheets"""
         try:
-            # Configurar el alcance
             scope = [
                 "https://spreadsheets.google.com/feeds",
                 "https://www.googleapis.com/auth/drive"
             ]
             
-            # Cargar credenciales desde secrets de Streamlit
+            # SOLO usar secrets de Streamlit (más seguro para deploy)
             if 'gsheets_credentials' in st.secrets:
-                # Desde secrets.toml
                 creds_dict = dict(st.secrets['gsheets_credentials'])
                 creds = Credentials.from_service_account_info(creds_dict, scopes=scope)
             else:
-                # Desde archivo JSON
-                creds = Credentials.from_service_account_file(
-                    'sistema-de-cita-475619-c857e206c342.json', 
-                    scopes=scope
-                )
+                # Para desarrollo local, puedes mantener el archivo JSON
+                # Pero en producción solo usará secrets
+                raise Exception("No se encontraron credenciales en secrets.toml")
             
             self.client = gspread.authorize(creds)
             
@@ -40,7 +36,6 @@ class GoogleSheetsManager:
             spreadsheet_id = "17ww3br45_saSqSaTceLcoCMKTq4CzMOa1hgoGV2xZMM"
             self.spreadsheet = self.client.open_by_key(spreadsheet_id)
                 
-            # Inicializar referencias a las hojas
             self._initialize_sheet_references()
             print("✅ Conectado a Google Sheets correctamente")
             
