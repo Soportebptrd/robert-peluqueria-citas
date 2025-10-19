@@ -1,0 +1,20 @@
+# Archivos de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+
+# Archivos de configuración sensibles
+sistema-de-cita-475619-c857e206c342.json
+.streamlit/secrets.toml
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/cache/
