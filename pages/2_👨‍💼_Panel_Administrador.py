@@ -28,8 +28,8 @@ def authenticate():
             
             if submitted:
                 try:
-                    if (username == st.secrets["Robert"]["username"] and 
-                        password == st.secrets["Robert2025"]["password"]):
+                    if (username == st.secrets["admin"]["username"] and 
+                        password == st.secrets["admin"]["password"]):
                         st.session_state.authenticated = True
                         st.rerun()
                     else:
